@@ -37,32 +37,38 @@ class _DioScreenState extends State<DioScreen> {
                 ),
               ),
             ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(13.0),
-                  child: Container(
-                    width: 180,
-                    child: TextField(
-                      controller: _id,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        hintText: 'Insert Id To Search',
-                        border: OutlineInputBorder(),
+            Center(
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(13.0),
+                    child: Container(
+                      width: 180,
+                      child: TextField(
+                        controller: _id,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          hintText: 'Insert Id To Search',
+                          border: OutlineInputBorder(),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    dioRequestDataByID();
-                  },
-                  child: Text(
-                    "Request Data",
-                    style: TextStyle(fontSize: 22),
+                  SizedBox(
+                    width: 90,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        dioRequestDataByID();
+                      },
+                      child: Text(
+                        "Search",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             SizedBox(height: 15),
             SizedBox(
@@ -142,11 +148,26 @@ class _DioScreenState extends State<DioScreen> {
 
       var code = _id.text;
 
+      print(code);
+      if (code.isEmpty) {
+        showDialog(
+          context: context,
+          useSafeArea: true,
+          barrierDismissible: true,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Info'),
+              content: Text(
+                  "Please Selected on id. Views Lis in: https://jsonplaceholder.typicode.com/users/"),
+            );
+          },
+        );
+        return false;
+      }
       var response =
           await dio.get("https://jsonplaceholder.typicode.com/users/$code");
 
       _response = response.data.toString();
-      print(response);
 
       showDialog(
         context: context,
