@@ -150,6 +150,11 @@ class _DioScreenState extends State<DioScreen> {
 
       print(code);
       if (code.isEmpty) {
+        setState(() {
+          _response =
+              "Please Selected on id. Views Lis in: https://jsonplaceholder.typicode.com/users/";
+        });
+
         showDialog(
           context: context,
           useSafeArea: true,
