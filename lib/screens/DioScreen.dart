@@ -168,7 +168,9 @@ class _DioScreenState extends State<DioScreen> {
           await dio.get("https://jsonplaceholder.typicode.com/users/$code");
 
       _response = response.data.toString();
-
+      setState(() {
+        _response = response.data.toString();
+      });
       showDialog(
         context: context,
         useSafeArea: true,
@@ -195,6 +197,10 @@ class _DioScreenState extends State<DioScreen> {
           );
         },
       );
+
+      setState(() {
+        _response = "Error Ocorred: $errorGet";
+      });
     } finally {
       //Recontruir BUild
     }
