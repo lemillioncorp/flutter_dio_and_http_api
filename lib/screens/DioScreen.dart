@@ -24,7 +24,7 @@ class _DioScreenState extends State<DioScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Expanded(
@@ -47,9 +47,9 @@ class _DioScreenState extends State<DioScreen> {
                       child: TextField(
                         controller: _id,
                         keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Insert Id To Search',
-                          border: OutlineInputBorder(),
+                          border: const OutlineInputBorder(),
                         ),
                       ),
                     ),
@@ -61,7 +61,7 @@ class _DioScreenState extends State<DioScreen> {
                       onPressed: () {
                         dioRequestDataByID();
                       },
-                      child: Text(
+                      child: const Text(
                         "Search",
                         style: TextStyle(fontSize: 16),
                       ),
@@ -70,7 +70,7 @@ class _DioScreenState extends State<DioScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             SizedBox(
               width: 200,
               height: 70,
@@ -78,13 +78,13 @@ class _DioScreenState extends State<DioScreen> {
                 onPressed: () {
                   dioRequestData();
                 },
-                child: Text(
+                child: const Text(
                   "Request Data",
-                  style: TextStyle(fontSize: 22),
+                  style: const TextStyle(fontSize: 22),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             SizedBox(
@@ -94,13 +94,13 @@ class _DioScreenState extends State<DioScreen> {
                 onPressed: () {
                   dioPostData();
                 },
-                child: Text(
+                child: const Text(
                   "Post Data",
                   style: TextStyle(fontSize: 22),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
           ],
@@ -128,7 +128,7 @@ class _DioScreenState extends State<DioScreen> {
         barrierDismissible: true,
         builder: (context) {
           return AlertDialog(
-            title: Text('Get Result'),
+            title: const Text('Get Result'),
             content: Text(_response.trim()),
           );
         },
@@ -147,8 +147,6 @@ class _DioScreenState extends State<DioScreen> {
       var dio = Dio();
 
       var code = _id.text;
-
-      print(code);
       if (code.isEmpty) {
         setState(() {
           _response =
@@ -160,7 +158,7 @@ class _DioScreenState extends State<DioScreen> {
           useSafeArea: true,
           barrierDismissible: true,
           builder: (context) {
-            return AlertDialog(
+            return const AlertDialog(
               title: Text('Info'),
               content: Text(
                   "Please Selected on id. Views Lis in: https://jsonplaceholder.typicode.com/users/"),
@@ -182,7 +180,7 @@ class _DioScreenState extends State<DioScreen> {
         barrierDismissible: true,
         builder: (context) {
           return AlertDialog(
-            title: Text('Get Result'),
+            title: const Text('Get Result'),
             content: SingleChildScrollView(child: Text(_response)),
           );
         },
@@ -196,9 +194,9 @@ class _DioScreenState extends State<DioScreen> {
         useSafeArea: true,
         barrierDismissible: true,
         builder: (context) {
-          return AlertDialog(
+          return const AlertDialog(
             title: Text('Error'),
-            content: Text('User not Exist'),
+            content: const Text('User not Exist'),
           );
         },
       );
@@ -233,7 +231,7 @@ class _DioScreenState extends State<DioScreen> {
         barrierDismissible: true,
         builder: (context) {
           return AlertDialog(
-            title: Text('Post Result'),
+            title: const Text('Post Result'),
             content: Text(_response),
           );
         },
