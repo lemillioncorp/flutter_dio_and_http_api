@@ -13,6 +13,7 @@ class DioScreen extends StatefulWidget {
 class _DioScreenState extends State<DioScreen> {
   String _response = "No Request API";
   TextEditingController _id = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,18 +37,32 @@ class _DioScreenState extends State<DioScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(13.0),
-              child: Container(
-                width: 380,
-                child: TextField(
-                  controller: _id,
-                  decoration: InputDecoration(
-                    hintText: 'Insert Id To Search',
-                    border: OutlineInputBorder(),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(13.0),
+                  child: Container(
+                    width: 180,
+                    child: TextField(
+                      controller: _id,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: 'Insert Id To Search',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                ElevatedButton(
+                  onPressed: () {
+                    dioRequestDataByID();
+                  },
+                  child: Text(
+                    "Request Data",
+                    style: TextStyle(fontSize: 22),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 15),
             SizedBox(
@@ -116,6 +131,49 @@ class _DioScreenState extends State<DioScreen> {
       print(response.statusCode);
     } catch (errorGet) {
       _response = "Error Ocorred: $errorGet";
+    } finally {
+      //Recontruir BUild
+    }
+  }
+
+  dioRequestDataByID() async {
+    try {
+      var dio = Dio();
+
+      var code = _id.text;
+
+      var response =
+          await dio.get("https://jsonplaceholder.typicode.com/users/$code");
+
+      _response = response.data.toString();
+      print(response);
+
+      showDialog(
+        context: context,
+        useSafeArea: true,
+        barrierDismissible: true,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Get Result'),
+            content: SingleChildScrollView(child: Text(_response)),
+          );
+        },
+      );
+
+      // print(response.statusCode);
+    } catch (errorGet) {
+      _response = "Error Ocorred: $errorGet";
+      showDialog(
+        context: context,
+        useSafeArea: true,
+        barrierDismissible: true,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('User not Exist'),
+          );
+        },
+      );
     } finally {
       //Recontruir BUild
     }
